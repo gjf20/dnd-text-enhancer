@@ -1,16 +1,11 @@
 package thesaurus
 
 import (
-	"fmt"
-	"io/ioutil"
-	"os"
-	"path/filepath"
 	"testing"
 
+	"github.com/gjf20/dnd-text-enhancer/pkg/common"
 	"github.com/stretchr/testify/require"
 )
-
-const exampleFolder = "json_response_examples"
 
 func TestExtractThesaurusEntrySuccesses(t *testing.T) {
 	tests := [][]string{
@@ -19,16 +14,7 @@ func TestExtractThesaurusEntrySuccesses(t *testing.T) {
 	}
 	for _, args := range tests {
 		t.Run(args[0], func(t *testing.T) {
-			currentWorkingDirectory, err := os.Getwd()
-			require.NoError(t, err, "Did not expect error getting current directory")
-
-			filepath := filepath.Join(currentWorkingDirectory, exampleFolder, args[1])
-			jsonFileContents, err := os.Open(filepath)
-			require.NoError(t, err, fmt.Sprintf("Did not expect error opening file %v", args[1]))
-			defer jsonFileContents.Close()
-
-			body, err := ioutil.ReadAll(jsonFileContents)
-			require.NoError(t, err, fmt.Sprintf("Did not expect error reading body of file %v", args[1]))
+			body := common.GetBodyFromFile(t, args[1])
 
 			thesaurusEntry, err := extractThesaurusEntry(body)
 			require.NoError(t, err, "extraction should have been successful")
@@ -44,18 +30,9 @@ func TestExtractThesaurusEntryErrors(t *testing.T) {
 	}
 	for _, args := range tests {
 		t.Run(args[0], func(t *testing.T) {
-			currentWorkingDirectory, err := os.Getwd()
-			require.NoError(t, err, "Did not expect error getting current directory")
+			body := common.GetBodyFromFile(t, args[1])
 
-			filepath := filepath.Join(currentWorkingDirectory, exampleFolder, args[1])
-			jsonFileContents, err := os.Open(filepath)
-			require.NoError(t, err, fmt.Sprintf("Did not expect error opening file %v", args[1]))
-			defer jsonFileContents.Close()
-
-			body, err := ioutil.ReadAll(jsonFileContents)
-			require.NoError(t, err, fmt.Sprintf("Did not expect error reading body of file %v", args[1]))
-
-			_, err = extractThesaurusEntry(body)
+			_, err := extractThesaurusEntry(body)
 			require.Error(t, err, "extraction should have failed")
 			require.Contains(t, err.Error(), args[2])
 		})
