@@ -81,7 +81,7 @@ func (p *Paragraph) replaceWithRandomSynonym(word string) {
 	}
 	syns, err := p.thesaurus.GetSynonyms(word)
 	if err != nil {
-		fmt.Printf("Could not get synonyms for %v, %v will be retained in the enhanced text\n", word, word)
+		fmt.Printf("Could not get synonyms for %v, %v will be retained in the enhanced text. Error was: %v\n", word, word, err)
 		return
 	}
 
