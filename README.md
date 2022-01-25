@@ -1,6 +1,8 @@
 # DnD Text Enhancer
 This is an application intended to assist Dungeon Masters create descriptive content that uses a variety of vocabulary.  The application includes a set of examples that fit this theme.  The enhancer swaps identified nouns, adjectives, and adverbs for a random synonym from Merriam-Webster's Collegiate Thesaurus.
 
+I chose to create this project becuase, while I like to improvise new settings and descriptions, my vocabulary can get repetitive.  This project helps to automate that process of using more varied language by using Natural Language Processing.  To combat the sometimes awkward output, I have included functionality to edit the resulting text - enabling me to pick and choose the right word within the context of the sentence.  
+
 ## Usage 
 ### Running from a pre-built binary
 Ensure you have an API key from https://dictionaryapi.com/products/api-collegiate-thesaurus.  
