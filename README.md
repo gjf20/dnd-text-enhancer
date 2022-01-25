@@ -26,6 +26,8 @@ If the necessary binary for your Operating System and Architecture is not presen
     1. Navigate to the directory where this README is located
     1. Run `go run main.go <api-key>`
 
+
+### Program Flow
 The program will then prompt you for text to enhance.  Enter the desired text and use 'Enter' or a newline to submit.  
 
 Optionally, enter words that you would like to be retained in the enhanced text. These words will not be replaced by synonyms.
@@ -36,7 +38,7 @@ After the synonym replacement, the enhanced text will be output.
 
 Then users will have the option to edit any of the words that were replaced.  The user can choose a different synonym from the thesaurus or the original word. 
 
-While in edit mode, the user will see the enhanced text annotated with brackets of indicies (ex. "Nice[0] day[1]").  The user can input an index of the word they would like to edit or 'done' to exit edit mode.  On selecting a valid index, the synonyms and original word will be listed and the user can again input an index to select a new replacement.
+While in edit mode, the user will see the enhanced text annotated with brackets of indicies (ex. "Nice[0] day[1]").  The user can input an index of the word they would like to edit or the cancel index to exit edit mode.  On selecting a valid index, the synonyms and original word will be listed and the user can again input an index to select a new replacement.
 
 ## Limitations
 
@@ -48,6 +50,13 @@ The natural language processor has limitiations.  For example, the word 'tall' i
 
 Below you can find some example text to try out yourself:
 
+```
+The tree looms over the vacant field.  Dottering peasants comb the field for artifacts long forgotten.
+
+A tavern with a blue door can be seen through the mist, lit by a single lantern hanging over the entrance.  Through a small window, you can see the movement of shadows within.
+
+The tomb is dark and made up of a large room with stone walls.  In the center of the room, there is a large dais presenting a sarcophagus - as if inviting you to come closer.
+```
 
 ## Testing
 
