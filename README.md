@@ -13,7 +13,10 @@ Ensure you have an API key from https://dictionaryapi.com/products/api-collegiat
             1. Unix-like systems: `uname -m` in Terminal
             1. Windows: `set processor` in Command Prompt
     1. Check the ./builds directory for the appropriate binary file (enhancer-<OS>-<Arch>)
-    1. Run that binary file with `./<binary-filename> <api-key>
+        1. If your operating system / architecture does not have a corresponding build file, please see the section about running directly from the source code.
+    1. Run that binary file:
+        1. Use `chmod +x <filename>` to make that file an executable (if not already)
+        1. Execute the file with `./<binary-filename> <api-key>
 
 
 ### Running directly from the source code

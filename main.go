@@ -25,7 +25,7 @@ func main() {
 			return
 		}
 	} else {
-		fmt.Printf("Please enter the Merriam Webster Collegiate Thesaurus API Key as a command line argument:\n `go run main.go <api-key>\n")
+		fmt.Printf("Please enter the Merriam Webster Collegiate Thesaurus API Key as a command line argument:\n `go run main.go <api-key>` or `<script> <api-key>`\n")
 		return
 	}
 
