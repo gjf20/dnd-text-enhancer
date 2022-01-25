@@ -7,7 +7,7 @@ import (
 )
 
 type Thesaurus interface {
-	GetSynonyms(string) []string
+	GetSynonyms(string) ([]string, error)
 }
 
 type OnlineThesaurus interface {
@@ -30,18 +30,18 @@ type MerriamWebsterThesaurus struct {
 
 type Client struct{}
 
-func (t *ThesaurusCache) GetSynonyms(word string) []string {
+func (t *ThesaurusCache) GetSynonyms(word string) ([]string, error) {
 	syns, ok := t.WordSynonyms[word]
 	if !ok {
 		var err error
 		syns, err = t.OnlinePortal.Query(word)
 		if err != nil {
-			return nil
+			return nil, err
 		}
 		t.WordSynonyms[word] = syns
 	}
 
-	return syns
+	return syns, nil
 }
 
 func (mwt *MerriamWebsterThesaurus) Query(word string) ([]string, error) {

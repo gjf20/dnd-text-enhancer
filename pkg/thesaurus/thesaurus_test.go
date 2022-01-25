@@ -27,7 +27,8 @@ func TestGetSynonymsFromCache(t *testing.T) {
 
 	mockPortal.EXPECT().Query(gomock.Any()).Times(0)
 
-	synList := tc.GetSynonyms(testWord)
+	synList, err := tc.GetSynonyms(testWord)
+	require.NoError(t, err)
 	require.Equal(t, 1, len(synList))
 	require.Equal(t, synList[0], expectedSynonym)
 }
@@ -47,12 +48,13 @@ func TestGetSynonymsQueriesOnlineThesaurus(t *testing.T) {
 
 	mockPortal.EXPECT().Query(testWord).Return([]string{expectedSynonym}, nil)
 
-	synList := tc.GetSynonyms(testWord)
+	synList, err := tc.GetSynonyms(testWord)
+	require.NoError(t, err)
 	require.Equal(t, 1, len(synList))
 	require.Equal(t, synList[0], expectedSynonym)
 }
 
-func TestGetSynonymsReturnsNilOnError(t *testing.T) {
+func TestGetSynonymsReturnsError(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 	mockPortal := mocks.NewMockOnlineThesaurus(ctrl)
@@ -64,9 +66,12 @@ func TestGetSynonymsReturnsNilOnError(t *testing.T) {
 		OnlinePortal: mockPortal,
 	}
 
-	mockPortal.EXPECT().Query(testWord).Return(nil, errors.New("fake error"))
+	testError := "fake error"
+	mockPortal.EXPECT().Query(testWord).Return(nil, errors.New(testError))
 
-	synList := tc.GetSynonyms(testWord)
+	synList, err := tc.GetSynonyms(testWord)
+	require.Error(t, err)
+	require.Contains(t, err.Error(), testError)
 	require.Nil(t, synList)
 	_, ok := tc.WordSynonyms[testWord]
 	require.False(t, ok, "New should not have been added to the cache when there is an error getting the data from the online portal")
