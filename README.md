@@ -42,6 +42,16 @@ Then users will have the option to edit any of the words that were replaced.  Th
 
 While in edit mode, the user will see the enhanced text annotated with brackets of indicies (ex. "Nice[0] day[1]").  The user can input an index of the word they would like to edit or the cancel index to exit edit mode.  On selecting a valid index, the synonyms and original word will be listed and the user can again input an index to select a new replacement.
 
+## What I'd Do Differently in Production
+
+I would opt to use a method of collecting user input that has a better user experience.  Ideally, something like [promptui](https://github.com/manifoldco/promptui) that is interactive.  The reason I chose not to use promptui was for compatibility issues with my Windows Command Prompt - promptui was duplicating lines of output that muddled the user experience.
+
+Additionally, I would implement automated integration testing to ensure that the user interface was behaving as expected.  These tests would cover both the common/userInput.go file and main.go as well as the Http Client for the Thesaurus interface in thesaurus.go.
+
+If I were to deploy this program to a server, then I would utilize a secret sharing mechanism in order to automatically load the Thesaurus API key rather than passing it as a command line argument.  Loading the secret within the program would help to obfuscate that key rather than leaving it more exposed as an argument.
+
+Finally, in production - and with more time - I would want to increase the feature set.  Integrating a Dungeons and Dragons API (like http://www.dnd5eapi.co/) that allows me to get Spell effects and Item Stats would enable me to add an Item-Generation feature that could randomly generate creative item names that match the stat effects.  For example: a "Potion of Melting" could be a potion that deals 1d4 Acid damage and a "Sword of Brawniness" could be a sword that give a character +1 to their Strength stat.
+
 ## Limitations
 
 Please note that, under free useage, the Merriam-Webster's Collegiate Thesaurus API only permits 1000 requests per day per key.
